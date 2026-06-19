@@ -232,6 +232,46 @@ There's nothing to eject. If you don't want the theme's version of a component,
 just don't import it — write your own and use it directly on the relevant
 pages. The theme's components are defaults, not requirements.
 
+## Social card images (optional)
+
+Generate a per-post Open Graph card (1200×630 PNG with the post title + site
+name) at build time, via [`astro-og-canvas`](https://github.com/delucis/astro-og-canvas).
+Two steps:
+
+```bash
+npm install astro-og-canvas
+```
+
+```ts
+// site/src/lib/site.ts
+export const SITE: SiteConfig = {
+  // …
+  cardImages: true,
+};
+```
+
+With `cardImages: true`, the integration **injects** the `/og/[...slug]` route
+for you, and the theme's post page points `og:image`/`twitter:image` at
+`/og/<slug>.png` (switching Twitter to `summary_large_image`); other pages keep
+`site.logo`. Leave the flag off (default) and nothing references the cards, so
+the dependency isn't needed.
+
+**Locally-linked themes:** an injected route can't resolve `astro-og-canvas`
+through a `file:`/symlink install (same as RSS). There, disable the injected
+route and host it yourself:
+
+```ts
+integrations: [quaro({ site: SITE, pages: { og: false } })],
+```
+
+```ts
+// site/src/pages/og/[...slug].ts
+import { createBlogOgRoute } from "quaro-theme/lib/og";
+import { SITE } from "../lib/site";
+
+export const { getStaticPaths, GET } = await createBlogOgRoute(SITE);
+```
+
 ## Versioning
 
 - Releases are tagged `vX.Y.Z` (semver); sites pin to a tag.

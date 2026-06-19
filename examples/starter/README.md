@@ -31,9 +31,15 @@ npm run dev
 ## What comes from the theme
 
 `/`, `/[...slug]`, and `/404` are injected by the `quaro` integration — there
-are no page files for them here. RSS ships as a local `src/pages/rss.xml.ts` so
-the build works on any install; switch to the injected feed by deleting it and
-removing `pages: { rss: false }` from `astro.config.mjs`.
+are no page files for them here. RSS and the per-post Open Graph card images
+(`/og/<slug>.png`) ship as local endpoints (`src/pages/rss.xml.ts`,
+`src/pages/og/[...slug].ts`) so the build works on any install; switch to the
+injected versions by deleting those files and dropping the `pages` toggles in
+`astro.config.mjs`.
+
+Card images are on by default here (`cardImages: true`); the card art (title +
+summary in HKGrotesk on a dark gradient) comes from the theme. Remove the flag,
+the endpoint, and the `astro-og-canvas` dependency to turn them off.
 
 ## Fonts
 

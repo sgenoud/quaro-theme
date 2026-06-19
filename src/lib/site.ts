@@ -31,6 +31,12 @@ export interface SiteConfig {
    */
   locale?: string;
   googleVerification?: string;
+  /**
+   * Generate a per-post Open Graph card image. When `true`, post pages point
+   * their share image at `/og/<slug>.png`, so the site must expose that route
+   * (re-export `createBlogOgRoute` from `quaro-theme/lib/og`). Defaults to false.
+   */
+  cardImages?: boolean;
   social: SocialLinks;
 }
 

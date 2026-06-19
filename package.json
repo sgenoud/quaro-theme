@@ -9,16 +9,21 @@
     "./layouts/*": "./src/layouts/*",
     "./components/*": "./src/components/*",
     "./styles/*": "./src/styles/*",
+    "./assets/*": "./src/assets/*",
     "./lib/*": "./src/lib/*",
     "./content.config": "./src/content.config.ts",
     "./virtual": "./src/virtual.d.ts"
   },
   "peerDependencies": {
     "astro": "^6.0.0",
-    "@astrojs/rss": "^4.0.0"
+    "@astrojs/rss": "^4.0.0",
+    "astro-og-canvas": "^0.11.0"
   },
   "peerDependenciesMeta": {
     "@astrojs/rss": {
+      "optional": true
+    },
+    "astro-og-canvas": {
       "optional": true
     }
   }

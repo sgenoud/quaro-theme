@@ -36,3 +36,13 @@ export function formatPostDate(date: Date, locale = "en-US") {
     timeZone: "UTC",
   }).format(date);
 }
+
+/**
+ * Filename stem for a post's OG card. `astro-og-canvas` treats a dot in a route
+ * key as a file extension, so flatten dots to keep slugs like
+ * `use-popper.js-in-react` intact. Used by both the card route and the
+ * `og:image` URL so they always match.
+ */
+export function ogImageSlug(slug: string) {
+  return slug.replace(/\./g, "-");
+}

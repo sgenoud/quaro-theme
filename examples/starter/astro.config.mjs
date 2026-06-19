@@ -6,15 +6,15 @@ import { SITE } from "./src/lib/site.ts";
 
 export default defineConfig({
   site: SITE.siteUrl,
-  // The theme injects `/`, `/[...slug]`, and `/404`. RSS is kept as a local
-  // endpoint (`src/pages/rss.xml.ts`) so the build works regardless of how the
-  // theme is installed; to use the injected feed instead, delete that file and
-  // drop `pages: { rss: false }`.
+  // The theme injects `/`, `/[...slug]`, and `/404`. RSS and the OG card route
+  // are kept as local endpoints (`src/pages/rss.xml.ts`, `src/pages/og/`) so the
+  // build works regardless of how the theme is installed; to use the injected
+  // versions instead, delete those files and drop the `pages` toggles.
   integrations: [
     quaro({
       site: SITE,
       styles: ["/src/styles/overrides.css"],
-      pages: { rss: false },
+      pages: { rss: false, og: false },
     }),
   ],
   // Heading anchors, matching the theme's `.anchor` styles.

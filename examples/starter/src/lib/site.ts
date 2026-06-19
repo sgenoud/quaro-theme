@@ -10,6 +10,8 @@ export const SITE: SiteConfig = {
   logo: "/logo.png",
   // BCP 47 tag — sets <html lang>, og:locale, and date formatting.
   locale: "en-US",
+  // Per-post Open Graph card images at /og/<slug>.png.
+  cardImages: true,
   social: {
     rss: "/rss.xml",
     github: "https://github.com/your-handle",

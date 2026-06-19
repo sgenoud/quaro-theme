@@ -34,6 +34,9 @@ export interface QuaroOptions {
     post?: boolean;
     notFound?: boolean;
     rss?: boolean;
+    /** Per-post OG card route at `/og/[...slug]`. Only injected when the site
+     *  config has `cardImages: true`. Disable when hosting it yourself. */
+    og?: boolean;
   };
   /**
    * Extra stylesheet specifiers to load globally, after the theme's tokens —
@@ -57,6 +60,7 @@ export default function quaro(options: QuaroOptions = {}): AstroIntegration {
     post: true,
     notFound: true,
     rss: true,
+    og: true,
     ...options.pages,
   };
 
@@ -134,6 +138,15 @@ export default function quaro(options: QuaroOptions = {}): AstroIntegration {
           injectRoute({
             pattern: "/rss.xml",
             entrypoint: "quaro-theme/pages/rss.xml.ts",
+            prerender: true,
+          });
+        }
+        // Card images carry a heavy optional dep, so only inject the route when
+        // the site actually opts in via `cardImages`.
+        if (pages.og && site.cardImages) {
+          injectRoute({
+            pattern: "/og/[...slug]",
+            entrypoint: "quaro-theme/pages/og/[...slug].ts",
             prerender: true,
           });
         }

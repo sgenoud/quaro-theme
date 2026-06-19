@@ -45,8 +45,17 @@ All notable changes to this theme are documented here. This project follows
   making the theme site-agnostic via injected config. `SiteConfig.locale`
   (BCP 47, default `en-US`) drives `<html lang>`, `og:locale`, and date
   formatting — single language per site.
-- `src/lib/posts.ts` — `getBlogPosts`, `getPostSlug`, and
+- `src/lib/posts.ts` — `getBlogPosts`, `getPostSlug`, `ogImageSlug`, and
   `formatPostDate(date, locale)` (locale-aware via `Intl.DateTimeFormat`).
+- `src/lib/og.ts` + `src/pages/og/[...slug].ts` — build-time per-post Open Graph
+  card images (1200×630) via `astro-og-canvas` (optional peer dep). Setting
+  `SiteConfig.cardImages: true` makes the integration inject the `/og/[...slug]`
+  route and the post page point `og:image`/`twitter:image` at `/og/<slug>.png`
+  (`summary_large_image`). `createBlogOgRoute(site)` is also exported for sites
+  that host the route themselves (e.g. locally-linked themes, via
+  `pages: { og: false }`). Cards render in HKGrotesk, bundled with the theme as
+  TTF under `src/assets/fonts/` (resolved via the `./assets/*` export), so no
+  per-site font setup is needed.
 - `src/lib/rss.ts` — `getBlogRss` + `excerpt`/`fixFeedImages`. Globs post images
   from `src/content/blog` itself (via a root-relative glob resolved against the
   consuming site), so a site's `rss.xml.ts` is a one-line `GET`; the `imageUrls`
