@@ -29,7 +29,9 @@ All notable changes to this theme are documented here. This project follows
   stylesheet, and a local RSS endpoint.
 - `src/styles/tokens.css` — design tokens (brand/accent colors, text colors,
   typography, type scale, vertical rhythm, layout) as CSS custom properties,
-  reproducing the blog.sgenoud.com look.
+  reproducing the blog.sgenoud.com look. All block spacing (headings, titles,
+  list items, bio) is expressed as `calc(var(--rhythm) * N)`, so changing
+  `--rhythm` rescales the whole vertical rhythm.
 - `src/layouts/BaseLayout.astro` — page shell ported from the blog's `Layout`:
   full SEO/OpenGraph/Twitter head driven by a `SiteConfig`, token-driven global
   styles, default content slot, and overridable `header` / `footer` slots.

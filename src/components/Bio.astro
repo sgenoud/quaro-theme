@@ -30,12 +30,12 @@ const { author = DEFAULT_SITE.author, image } = Astro.props;
   .bio {
     display: flex;
     align-items: center;
-    margin-bottom: 4.375rem;
+    margin-bottom: calc(var(--rhythm) * 2.5);
   }
 
   img {
     min-width: 50px;
-    margin-right: 0.875rem;
+    margin-right: calc(var(--rhythm) * 0.5);
     margin-bottom: 0;
     border-radius: var(--radius-round);
   }

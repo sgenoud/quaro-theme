@@ -130,7 +130,7 @@ const image = new URL(site.logo, site.siteUrl);
   }
 
   li {
-    margin-bottom: 0.4375rem;
+    margin-bottom: calc(var(--rhythm) * 0.25);
   }
 
   h1,
@@ -141,9 +141,11 @@ const image = new URL(site.logo, site.siteUrl);
   h6 {
     color: var(--color-heading);
     font-weight: var(--font-weight-normal);
-    line-height: 1.1;
-    margin-bottom: 0.875rem;
-    margin-top: var(--content-padding-block);
+    line-height: var(--heading-line-height);
+    /* Spacing as multiples of --rhythm; more above than below to bind the
+       heading to the section it introduces. */
+    margin-bottom: calc(var(--rhythm) * 0.5);
+    margin-top: calc(var(--rhythm) * 1.5);
   }
 
   h1 {
@@ -167,7 +169,7 @@ const image = new URL(site.logo, site.siteUrl);
   .home-title {
     color: var(--title-blue);
     font-size: var(--font-size-home-title);
-    margin-bottom: var(--content-padding-block);
+    margin-bottom: calc(var(--rhythm) * 1.5);
     margin-top: 0;
   }
 
@@ -182,7 +184,7 @@ const image = new URL(site.logo, site.siteUrl);
   .site-title {
     color: var(--title-blue);
     font-size: var(--font-size-h3);
-    margin-bottom: var(--content-padding-block);
+    margin-bottom: calc(var(--rhythm) * 1.5);
     margin-top: 0;
   }
 
@@ -194,7 +196,8 @@ const image = new URL(site.logo, site.siteUrl);
   .post-date {
     display: block;
     margin-bottom: var(--rhythm);
-    margin-top: -0.875rem;
+    /* Pull up under the title by the title's own bottom margin. */
+    margin-top: calc(var(--rhythm) * -0.5);
   }
 
   img,
@@ -251,6 +254,6 @@ const image = new URL(site.logo, site.siteUrl);
     background: var(--color-rule);
     border: 0;
     height: 1px;
-    margin: var(--content-padding-block) 0 var(--rhythm);
+    margin: calc(var(--rhythm) * 1.5) 0 var(--rhythm);
   }
 </style>

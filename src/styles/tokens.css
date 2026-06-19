@@ -33,10 +33,13 @@
   --font-base-size: 112.5%;
   --font-weight-normal: 300;
   --font-weight-bold: bold;
-  --line-height: normal;
+  /* Unitless line-heights so they scale per element font-size. Body is roomy
+     for reading; headings are tighter since large type needs less leading. */
+  --line-height: 1.35;
+  --heading-line-height: 1.15;
 
   /* Vertical rhythm & layout */
-  --rhythm: 1.75rem;
+  --rhythm: 1.3rem;
   --content-max-width: 42rem;
   --content-padding-block: 2.625rem;
   --content-padding-inline: 1.3125rem;
