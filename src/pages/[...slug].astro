@@ -13,23 +13,17 @@ import { SITE } from 'virtual:quaro-theme/config';
 export async function getStaticPaths() {
   const posts = await getBlogPosts();
 
-  return posts.map((post, index) => ({
+  return posts.map((post) => ({
     params: { slug: getPostSlug(post) },
-    props: {
-      post,
-      previous: posts[index + 1] ?? null,
-      next: posts[index - 1] ?? null,
-    },
+    props: { post },
   }));
 }
 
 interface Props {
   post: BlogPost;
-  previous: BlogPost | null;
-  next: BlogPost | null;
 }
 
-const { post, previous, next } = Astro.props;
+const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
@@ -39,37 +33,4 @@ const { Content } = await render(post);
     <p class="post-date">{formatPostDate(post.data.date, SITE.locale)}</p>
     <Content />
   </article>
-
-  <hr />
-
-  <ul class="post-nav">
-    <li>
-      {
-        previous && (
-          <a href={`/${getPostSlug(previous)}/`} rel="prev">
-            ← {previous.data.title}
-          </a>
-        )
-      }
-    </li>
-    <li>
-      {
-        next && (
-          <a href={`/${getPostSlug(next)}/`} rel="next">
-            {next.data.title} →
-          </a>
-        )
-      }
-    </li>
-  </ul>
 </BaseLayout>
-
-<style>
-  .post-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    list-style: none;
-    padding: 0;
-  }
-</style>
