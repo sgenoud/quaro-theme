@@ -18,10 +18,15 @@ All notable changes to this theme are documented here. This project follows
   default pages (`/`, `/[...slug]`, `/404`, `/rss.xml`) and exposes the site
   config to them via a `virtual:quaro-theme/config` module. A `pages` option
   toggles individual defaults off; a site's own `src/pages/*` file overrides the
-  injected route of the same path.
+  injected route of the same path. A `styles` option loads override stylesheets
+  after the theme tokens (served as a `virtual:quaro-theme/overrides.css` module
+  the injected pages import), so a page-less site can still redefine tokens.
 - `src/pages/{index,[...slug],404}.astro` and `src/pages/rss.xml.ts` — default
   page templates the integration injects, reading config from the virtual module.
-- `src/virtual.d.ts` — types for the virtual config module (`quaro-theme/virtual`).
+- `src/virtual.d.ts` — types for the virtual modules (`quaro-theme/virtual`).
+- `examples/starter/` — a ready-to-run starter site (degittable) that pre-wires
+  the integration, site config, content collection, a sample post, an overrides
+  stylesheet, and a local RSS endpoint.
 - `src/styles/tokens.css` — design tokens (brand/accent colors, text colors,
   typography, type scale, vertical rhythm, layout) as CSS custom properties,
   reproducing the blog.sgenoud.com look.

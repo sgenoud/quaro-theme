@@ -7,6 +7,23 @@ provides its own config, posts, and assets — no forking.
 Built for Astro 6 (content layer / glob loader). Sites install it as a
 git-tagged dependency; no npm registry needed.
 
+## Quick start (scaffold a new blog)
+
+The fastest way to a working site is the starter under
+[`examples/starter`](./examples/starter) — copy it out (no git history) with
+[degit](https://github.com/Rich-Harris/degit):
+
+```bash
+npx degit sgenoud/quaro-theme/examples/starter my-blog
+cd my-blog
+npm install
+npm run dev
+```
+
+It comes pre-wired (integration, config, content collection, a sample post) and
+runs immediately; edit `src/lib/site.ts` to make it yours. The rest of this
+README covers wiring the theme into an existing site by hand.
+
 ## Install
 
 Pin to a tag:
@@ -161,9 +178,7 @@ or override `--font-sans` (see below) to use your own.
 
 Every visual value is a CSS variable in
 [`src/styles/tokens.css`](./src/styles/tokens.css). Define an `overrides.css`
-in your site that redefines just the variables you want, and import it **after**
-the theme's `tokens.css`. `BaseLayout` imports `tokens.css` first, so importing
-your overrides in the page (or a wrapper) after the layout wins the cascade:
+in your site that redefines just the variables you want:
 
 ```css
 /* site/src/styles/overrides.css */
@@ -174,12 +189,25 @@ your overrides in the page (or a wrapper) after the layout wins the cascade:
 }
 ```
 
-```astro
----
-import BaseLayout from 'quaro-theme/layouts/BaseLayout.astro';
-import '../styles/overrides.css'; // after the layout → overrides the tokens
----
-```
+It must load **after** the theme's `tokens.css`. How depends on which pages you
+use:
+
+- **Injected pages (the integration).** Pass the file to the `styles` option;
+  the injected pages import it after the tokens for you:
+
+  ```js
+  integrations: [quaro({ site: SITE, styles: ["/src/styles/overrides.css"] })],
+  ```
+
+- **Your own pages.** Import it after `BaseLayout` (which pulls in `tokens.css`),
+  so it wins the cascade:
+
+  ```astro
+  ---
+  import BaseLayout from 'quaro-theme/layouts/BaseLayout.astro';
+  import '../styles/overrides.css'; // after the layout → overrides the tokens
+  ---
+  ```
 
 ## Overriding a region (header / footer)
 

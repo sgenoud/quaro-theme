@@ -1,0 +1,10 @@
+/*
+ * Redefine any design token from `quaro-theme/styles/tokens.css` here. This
+ * file is loaded after the theme's tokens (via the `styles` option in
+ * astro.config), so these values win. Delete the block below to use the
+ * theme's defaults unchanged.
+ */
+:root {
+  /* Example: swap the accent / title color. */
+  --title-blue: #7c3aed;
+}

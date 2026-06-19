@@ -6,3 +6,5 @@ declare module "virtual:quaro-theme/config" {
   import type { SiteConfig } from "quaro-theme/lib/site";
   export const SITE: SiteConfig;
 }
+
+declare module "virtual:quaro-theme/overrides.css";
