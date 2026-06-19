@@ -36,7 +36,7 @@ const { Content } = await render(post);
 <BaseLayout site={SITE} title={post.data.title} description={post.data.summary}>
   <article>
     <h1>{post.data.title}</h1>
-    <p class="post-date">{formatPostDate(post.data.date)}</p>
+    <p class="post-date">{formatPostDate(post.data.date, SITE.locale)}</p>
     <Content />
   </article>
 

@@ -28,8 +28,8 @@ export async function getBlogPosts() {
   return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
-export function formatPostDate(date: Date) {
-  return new Intl.DateTimeFormat("en-US", {
+export function formatPostDate(date: Date, locale = "en-US") {
+  return new Intl.DateTimeFormat(locale, {
     month: "long",
     day: "2-digit",
     year: "numeric",

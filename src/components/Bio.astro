@@ -3,11 +3,11 @@ import { Image } from 'astro:assets';
 import { DEFAULT_SITE } from '../lib/site';
 
 /**
- * Author bio block.
+ * Author bio block: an avatar next to whatever the site puts in the slot.
  *
- * The avatar is a site asset, so the site imports it and passes it as `image`
- * (an `astro:assets` ImageMetadata). The blurb defaults to a simple line but
- * can be replaced by passing children into the default slot.
+ * The theme ships no copy here (nothing to translate) — the site provides the
+ * blurb as children, in its own language. The avatar is a site asset passed as
+ * `image` (an `astro:assets` ImageMetadata); `author` is just its alt text.
  */
 interface Props {
   author?: string;
@@ -20,9 +20,7 @@ const { author = DEFAULT_SITE.author, image } = Astro.props;
 <div class="bio">
   {image && <Image src={image} width={50} height={50} alt={author} />}
   <div>
-    <slot>
-      Personal blog by <strong>{author}</strong>.
-    </slot>
+    <slot />
   </div>
 </div>
 

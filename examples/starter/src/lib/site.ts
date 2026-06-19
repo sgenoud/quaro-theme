@@ -8,6 +8,8 @@ export const SITE: SiteConfig = {
   description: "A personal blog built with the Quaro theme.",
   siteUrl: "https://example.com",
   logo: "/logo.png",
+  // BCP 47 tag — sets <html lang>, og:locale, and date formatting.
+  locale: "en-US",
   social: {
     rss: "/rss.xml",
     github: "https://github.com/your-handle",
