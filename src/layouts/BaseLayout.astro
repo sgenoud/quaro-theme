@@ -37,6 +37,19 @@ const image = new URL(site.logo, site.siteUrl);
 const locale = site.locale ?? 'en-US';
 // OpenGraph wants the territory form, e.g. en_US.
 const ogLocale = locale.replace('-', '_');
+
+// Derive a fediverse handle (@user@instance) from the Mastodon profile URL so
+// Mastodon can attribute the page to its author in link previews.
+let fediverseCreator: string | undefined;
+if (site.social.mastodon) {
+  try {
+    const url = new URL(site.social.mastodon);
+    const username = url.pathname.match(/^\/@([^/]+)/)?.[1];
+    if (username) fediverseCreator = `@${username}@${url.hostname}`;
+  } catch {
+    // Malformed URL — skip the tag rather than break the build.
+  }
+}
 ---
 
 <!doctype html>
@@ -48,6 +61,7 @@ const ogLocale = locale.replace('-', '_');
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="application/rss+xml" title={site.title} href={site.social.rss ?? '/rss.xml'} />
     <meta name="description" content={description} />
+    {fediverseCreator && <meta name="fediverse:creator" content={fediverseCreator} />}
     {site.googleVerification && <meta name="google-site-verification" content={site.googleVerification} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
