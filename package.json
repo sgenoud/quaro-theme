@@ -1,0 +1,25 @@
+{
+  "name": "quaro-theme",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/integration.ts",
+    "./integration": "./src/integration.ts",
+    "./pages/*": "./src/pages/*",
+    "./layouts/*": "./src/layouts/*",
+    "./components/*": "./src/components/*",
+    "./styles/*": "./src/styles/*",
+    "./lib/*": "./src/lib/*",
+    "./content.config": "./src/content.config.ts",
+    "./virtual": "./src/virtual.d.ts"
+  },
+  "peerDependencies": {
+    "astro": "^6.0.0",
+    "@astrojs/rss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@astrojs/rss": {
+      "optional": true
+    }
+  }
+}

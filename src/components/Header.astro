@@ -1,0 +1,30 @@
+---
+import { DEFAULT_SITE } from '../lib/site';
+
+/**
+ * Default theme header: the site title, linked home.
+ *
+ * Renders large on the home page (`home`) and small elsewhere — matching the
+ * blog.sgenoud.com behaviour. The `.home-title` / `.site-title` styles live in
+ * BaseLayout's global stylesheet (and are driven by tokens.css).
+ */
+interface Props {
+  title?: string;
+  home?: boolean;
+  href?: string;
+}
+
+const { title = DEFAULT_SITE.title, home = false, href = '/' } = Astro.props;
+---
+
+{
+  home ? (
+    <h1 class="home-title">
+      <a href={href}>{title}</a>
+    </h1>
+  ) : (
+    <h3 class="site-title">
+      <a href={href}>{title}</a>
+    </h3>
+  )
+}

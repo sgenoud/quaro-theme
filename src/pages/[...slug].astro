@@ -1,0 +1,74 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  formatPostDate,
+  getBlogPosts,
+  getPostSlug,
+  type BlogPost,
+} from '../lib/posts';
+import { SITE } from 'virtual:quaro-theme/config';
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+
+  return posts.map((post, index) => ({
+    params: { slug: getPostSlug(post) },
+    props: {
+      post,
+      previous: posts[index + 1] ?? null,
+      next: posts[index - 1] ?? null,
+    },
+  }));
+}
+
+interface Props {
+  post: BlogPost;
+  previous: BlogPost | null;
+  next: BlogPost | null;
+}
+
+const { post, previous, next } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout site={SITE} title={post.data.title} description={post.data.summary}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <p class="post-date">{formatPostDate(post.data.date)}</p>
+    <Content />
+  </article>
+
+  <hr />
+
+  <ul class="post-nav">
+    <li>
+      {
+        previous && (
+          <a href={`/${getPostSlug(previous)}/`} rel="prev">
+            ← {previous.data.title}
+          </a>
+        )
+      }
+    </li>
+    <li>
+      {
+        next && (
+          <a href={`/${getPostSlug(next)}/`} rel="next">
+            {next.data.title} →
+          </a>
+        )
+      }
+    </li>
+  </ul>
+</BaseLayout>
+
+<style>
+  .post-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+  }
+</style>
